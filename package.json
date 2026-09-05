@@ -1,0 +1,24 @@
+{
+  "name": "harshdipsaha-mcp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Public, read-only MCP server for harshdipsaha.tech",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json --noEmit",
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "2.0.0",
+    "agents": "0.22.0",
+    "zod": "4.5.4"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20260905.1",
+    "@types/node": "26.4.1",
+    "typescript": "7.0.2",
+    "wrangler": "4.129.0"
+  }
+}
