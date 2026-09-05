@@ -49,7 +49,11 @@ export function createServer() {
           .describe(
             "Keywords to match against project titles and summaries, e.g. 'medical imaging'. Pass an empty string to list every project.",
           ),
-        limit: z.number().int().min(1).max(50).default(10).describe("Maximum number of projects to return."),
+        limit: z
+          .number()
+          .int()
+          .default(10)
+          .describe("Maximum number of projects to return (1-50; out-of-range values are clamped, not rejected)."),
       }),
       outputSchema: z.object({
         query: z.string(),
@@ -59,8 +63,12 @@ export function createServer() {
       annotations: READ_ONLY,
     },
     async ({ query, limit }) => {
+      // Clamp rather than reject — matches the leniency of the portfolio's
+      // WebMCP searchProjects, so a slightly out-of-range value from a
+      // calling agent still gets a useful result instead of a hard error.
+      const clampedLimit = Math.min(50, Math.max(1, limit));
       const { projects } = await fetchAgentData();
-      const results = searchProjects(projects, query, limit);
+      const results = searchProjects(projects, query, clampedLimit);
       return {
         content: [{ type: "text", text: formatSearchResultsText(results, query) }],
         structuredContent: { query, count: results.length, results },

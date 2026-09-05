@@ -46,7 +46,7 @@ MCP spec's 2026-07-28 revision.
 ```bash
 npm install
 npm run typecheck   # tsc, split into tsconfig.json (src, Workers types) + tsconfig.test.json (test, Node types)
-npm test            # node --test test/ — the pure-function suite
+npm test            # node --test (default discovery) — the pure-function suite
 npm run dev          # wrangler dev — needs Node >= 22 (see below)
 ```
 
