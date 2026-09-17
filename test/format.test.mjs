@@ -34,6 +34,25 @@ test("formatProfileText includes the bio, role, and every skill", () => {
   assert.ok(text.includes(profile.github));
 });
 
+test("formatProfileText lists each interest with how it is being pursued", () => {
+  const withInterests = {
+    ...profile,
+    interests: [
+      {
+        topic: "LLM safety",
+        pursuit: "Collaborating with ETH Zurich professors on an LLM safety project for the past 3 months.",
+      },
+    ],
+  };
+  const text = formatProfileText(withInterests);
+  assert.ok(text.includes("LLM safety"));
+  assert.ok(text.includes("ETH Zurich professors"));
+});
+
+test("formatProfileText omits the interests section when the field is absent", () => {
+  assert.ok(!formatProfileText(profile).includes("Interests"));
+});
+
 test("formatSearchResultsText lists one line per project", () => {
   const text = formatSearchResultsText(projects, "glioblastoma");
   assert.ok(text.includes("RECAP-Net"));

@@ -12,10 +12,12 @@
  * @returns {string}
  */
 export function formatProfileText(profile) {
+  const interests = profile.interests ?? [];
   return [
     `${profile.name} — ${profile.role}, ${profile.location}.`,
     profile.bio,
     `Skills: ${profile.skills.join(", ")}.`,
+    ...(interests.length ? ["Interests:", ...interests.map((i) => `- ${i.topic}: ${i.pursuit}`)] : []),
     `GitHub: ${profile.github}`,
     `LinkedIn: ${profile.linkedin}`,
     `Résumé: ${profile.resume}`,

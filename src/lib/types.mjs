@@ -13,6 +13,10 @@
  * @property {string} url
  * @property {string} [code]
  *
+ * @typedef {object} Interest
+ * @property {string} topic
+ * @property {string} pursuit  How the interest is being actively pursued.
+ *
  * @typedef {object} Profile
  * @property {string} name
  * @property {string} role
@@ -24,6 +28,7 @@
  * @property {string} resume
  * @property {string} siteUrl
  * @property {string[]} skills
+ * @property {Interest[]} [interests]
  *
  * @typedef {object} AgentData
  * @property {Profile} profile

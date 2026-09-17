@@ -2,6 +2,7 @@ import { McpServer } from "@modelcontextprotocol/server";
 import { z } from "zod";
 import { fetchAgentData } from "./lib/agent-data-client.mjs";
 import { formatProfileText, formatSearchResultsText } from "./lib/format.mjs";
+import { withInterests } from "./lib/interests.mjs";
 import { searchProjects } from "./lib/search-projects.mjs";
 
 const PROJECT_SCHEMA = z.object({
@@ -24,6 +25,7 @@ const PROFILE_SCHEMA = z.object({
   resume: z.string(),
   siteUrl: z.string(),
   skills: z.array(z.string()),
+  interests: z.array(z.object({ topic: z.string(), pursuit: z.string() })),
 });
 
 const READ_ONLY = { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false };
@@ -80,13 +82,14 @@ export function createServer() {
     "getProfile",
     {
       title: "Get profile",
-      description: "Return Harshdip Saha's bio, skills, contact info, résumé link and site URL.",
+      description:
+        "Return Harshdip Saha's bio, skills, research interests (and how he is pursuing each one), contact info, résumé link and site URL. Use this for questions about his interests, background, or how to reach him.",
       inputSchema: z.object({}),
       outputSchema: PROFILE_SCHEMA,
       annotations: READ_ONLY,
     },
     async () => {
-      const { profile } = await fetchAgentData();
+      const profile = withInterests((await fetchAgentData()).profile);
       return {
         content: [{ type: "text", text: formatProfileText(profile) }],
         structuredContent: profile,
