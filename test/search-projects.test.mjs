@@ -61,3 +61,8 @@ test("does not mutate the input array", () => {
   searchProjects(projects, "net", 10);
   assert.equal(JSON.stringify(projects), before);
 });
+
+test("matches the award field, so 'winner' finds an awarded project whose summary never says so", () => {
+  const awarded = [...projects, { slug: "verdict", title: "VERDICT", summary: "Evidence-bonded forgery audit.", year: "2026", url: "https://harshdipsaha.tech/projects/verdict", award: "Winner" }];
+  assert.deepEqual(searchProjects(awarded, "winner", 10).map((p) => p.slug), ["verdict"]);
+});

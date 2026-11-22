@@ -11,6 +11,7 @@ const PROJECT_SCHEMA = z.object({
   summary: z.string(),
   year: z.string(),
   url: z.string(),
+  award: z.string().optional(),
   code: z.string().optional(),
 });
 
@@ -44,7 +45,7 @@ export function createServer() {
     {
       title: "Search projects",
       description:
-        "Search Harshdip Saha's projects by keyword and return matching titles, summaries, years and case-study URLs. Covers exactly the projects listed on harshdipsaha.tech/projects.",
+        "Search Harshdip Saha's projects by keyword and return matching titles, summaries, years, awards and case-study URLs. Covers exactly the projects listed on harshdipsaha.tech/projects. Search 'winner' to list award-winning projects.",
       inputSchema: z.object({
         query: z
           .string()
