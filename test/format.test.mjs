@@ -64,3 +64,11 @@ test("formatSearchResultsText names the query when nothing matches", () => {
   const text = formatSearchResultsText([], "zzz-no-such-project-zzz");
   assert.equal(text, 'No projects match "zzz-no-such-project-zzz".');
 });
+
+test("formatSearchResultsText labels an awarded project, and only that one", () => {
+  const awarded = { slug: "verdict", title: "VERDICT", summary: "Forgery audit.", year: "2026", url: "https://harshdipsaha.tech/projects/verdict", award: "Winner" };
+  const plain = { slug: "loom", title: "Loom", summary: "Punched cards.", year: "2025", url: "https://harshdipsaha.tech/projects/loom" };
+  const [first, second] = formatSearchResultsText([awarded, plain], "").split("\n");
+  assert.ok(first?.includes("VERDICT (2026) [Winner] —"));
+  assert.ok(second !== undefined && !second.includes("[Winner]"));
+});

@@ -11,6 +11,7 @@
  * @property {string} summary
  * @property {string} year
  * @property {string} url
+ * @property {string} [award]  Frontmatter `award`, e.g. "Winner" (site effort 054).
  * @property {string} [code]
  *
  * @typedef {object} Interest

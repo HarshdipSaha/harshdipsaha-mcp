@@ -33,5 +33,5 @@ export function formatProfileText(profile) {
  */
 export function formatSearchResultsText(results, query) {
   if (results.length === 0) return `No projects match ${JSON.stringify(query)}.`;
-  return results.map((p) => `${p.title} (${p.year}) — ${p.summary} ${p.url}`).join("\n");
+  return results.map((p) => `${p.title} (${p.year})${p.award ? ` [${p.award}]` : ""} — ${p.summary} ${p.url}`).join("\n");
 }

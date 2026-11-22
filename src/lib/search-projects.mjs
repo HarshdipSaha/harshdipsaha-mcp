@@ -2,7 +2,7 @@
  * Same matching semantics as HARSHDIPSAHA.github.io's WebMCP `searchProjects`
  * (src/components/agent/WebMcpTools.tsx) — kept in sync by hand, see the
  * repo's README. Every whitespace-separated query term must appear somewhere
- * in the project's title, summary, slug, or year, case-insensitively.
+ * in the project's title, summary, slug, year, or award, case-insensitively.
  */
 
 /** @typedef {import("./types.mjs").AgentProject} AgentProject */
@@ -17,7 +17,7 @@ export function searchProjects(projects, query, limit) {
   const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
   const matches = terms.length
     ? projects.filter((p) => {
-        const hay = `${p.title} ${p.summary} ${p.slug} ${p.year}`.toLowerCase();
+        const hay = `${p.title} ${p.summary} ${p.slug} ${p.year} ${p.award ?? ""}`.toLowerCase();
         return terms.every((t) => hay.includes(t));
       })
     : projects;
